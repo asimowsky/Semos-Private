@@ -1,0 +1,36 @@
+.container {
+  max-width: 600px;
+}
+.box {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+.userProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+.userProfile img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.submit {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+
+.nextBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+  gap: 20px;
+}

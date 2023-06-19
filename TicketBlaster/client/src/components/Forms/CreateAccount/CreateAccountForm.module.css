@@ -1,0 +1,54 @@
+.container {
+  width: 357px;
+}
+
+.roundInput {
+  width: 357px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.loginButton {
+  width: 128px;
+  padding: 10px;
+  background-color: #ff48ab;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.heading {
+  font-size: 33px;
+  font-weight: bolder;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.downFormSide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.downSide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.errorMessage {
+  color: red;
+  padding: 8px;
+  border: 2px solid red;
+}

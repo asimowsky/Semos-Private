@@ -1,0 +1,20 @@
+.content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 3em;
+}
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content {
+    flex-grow: 1;
+  }
+  
+  .footer {
+    margin-top: auto;
+  }
+  

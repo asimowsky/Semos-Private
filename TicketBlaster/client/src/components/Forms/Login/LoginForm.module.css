@@ -1,0 +1,77 @@
+.container {
+  width: 357px;
+}
+
+.roundInput {
+  width: 357px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.loginButton {
+  width: 128px;
+  padding: 10px;
+  background-color: #ff48ab;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.pinkButton:hover {
+  background-color: hotpink;
+}
+
+.heading {
+  font-size: 33px;
+  font-weight: bolder;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.downFormSide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgotLink {
+  font-size: 16px;
+  color: black;
+}
+
+.downSide {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.btnLogin {
+  background-color: #ff48ab;
+  border: none;
+  width: 128px;
+  font-weight: bold;
+  color: white;
+  font-size: 16px;
+  height: 42px;
+}
+
+.btnDha {
+  background-color: transparent;
+  border: 1px solid #ff48ab;
+  width: 100%;
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+  height: 42px;
+}

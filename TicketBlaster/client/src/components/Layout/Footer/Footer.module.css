@@ -1,0 +1,26 @@
+footer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  background-color: #000000;
+  gap: 130px;
+  color: rgb(252, 252, 252);
+  height: 70px;
+  align-items: center;
+}
+.box {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
