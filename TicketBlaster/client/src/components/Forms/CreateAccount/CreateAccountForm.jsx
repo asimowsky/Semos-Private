@@ -4,13 +4,13 @@ import { GenericButton } from "../../Buttons/GenericButton";
 import { InputField } from "../Input/InputField";
 import { AuthService } from "../../../services/authService";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
 export const CreateAccountForm = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirm_password: "",
   });
 
   const { createAccount } = AuthService();
@@ -26,7 +26,7 @@ export const CreateAccountForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirm_password) {
       setErrorMessage("Passwords do not match");
       return;
     }
@@ -35,8 +35,11 @@ export const CreateAccountForm = () => {
 
     if (response) {
       navigate("/login");
+      toast.success(response.message);
     } else {
-      console.log(response?.error);
+      const errorMessage =
+        response?.response?.data?.message || "An error occurred";
+      toast.error("An error occurred");
     }
   };
 
@@ -77,9 +80,9 @@ export const CreateAccountForm = () => {
                 label="Re-type Password"
                 type="password"
                 id="confirmPassword"
-                name="confirmPassword"
+                name="confirm_password"
                 required
-                value={formData.confirmPassword}
+                value={formData.confirm_password}
                 onChange={handleInputChange}
               />
               {errorMessage && (

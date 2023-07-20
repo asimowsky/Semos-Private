@@ -4,22 +4,41 @@ import { GenericCard } from "../../components/Content/Dashboard/GenericCard";
 import { EventLayout } from "../../components/Layout/EventLayout/EventLayout";
 import { EventsService } from "../../services/eventsService";
 import { formatDate } from "../../components/Constants/constants";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 export const MusicalConcerts = () => {
   const [musicalEvents, setMusicalEvents] = useState([]);
-  const [musicalCardsToShow, setMusicalCardsToShow] = useState(4);
-  const { getEvents } = EventsService();
-  useEffect(() => {
-    const fetchMusicalEvents = async () => {
-      const data = await getEvents();
-      setMusicalEvents(data);
-    };
+  const [page, setPage] = useState(0);
+  const [stopLoadMore, setStopLoadMore] = useState(false);
+  const navigate = useNavigate();
 
+  const fetchMusicalEvents = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8085/api/events/type?type=Music&page=${
+          page + 1
+        }&limit=${2}`
+      );
+
+      setMusicalEvents((prev) => [...prev, ...response.data]);
+      setPage((prev) => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchMusicalEvents();
   }, []);
 
+  const navigateToSinglePage = (id) => {
+    navigate(`/single/${id}`);
+  };
+
   const handleLoadMore = (eventType) => {
     if (eventType === "musical") {
-      setMusicalCardsToShow(musicalCardsToShow + 2);
+      fetchMusicalEvents();
     }
   };
 
@@ -27,18 +46,23 @@ export const MusicalConcerts = () => {
     <EventLayout>
       <EventBoard
         heading={"Musical Concerts"}
-        loadMore={"load more musical concerts"}
+        loadMore={stopLoadMore ? false : "load more musical concerts"}
         loadMoreFun={() => handleLoadMore("musical")}
         grid
       >
-        {musicalEvents.slice(0, musicalCardsToShow).map((event) => (
+        {musicalEvents?.map((card, index) => (
           <GenericCard
-            key={event._id}
-            imageSrc={event.imageSrc}
-            heading={event.title}
-            subHeading={formatDate(event.date)}
-            description={event.description}
-            location={event.location}
+            key={index}
+            imageSrc={
+              process.env.REACT_APP_DATABASE_URL + "uploads/" + card.image
+            }
+            heading={card.title}
+            subHeading={formatDate(card.date)}
+            description={card.description}
+            location={card.location}
+            price={card.price}
+            getTickets
+            onClick={() => navigateToSinglePage(card._id)}
           />
         ))}
       </EventBoard>

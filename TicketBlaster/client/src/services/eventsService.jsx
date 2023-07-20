@@ -1,11 +1,36 @@
+import { toast } from "react-hot-toast";
 import { useAxiosClient } from "./axiosConfig";
 
 export const EventsService = () => {
   const axios = useAxiosClient();
 
-  const getEvents = async () => {
+  const getMusicalEvents = async () => {
     try {
-      const response = await axios.get("/api/musical/events");
+      const response = await axios.get(`/api/events/type?type=Music`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getComedyEvents = async () => {
+    try {
+      const response = await axios.get(`/api/events/type?type=Comedy`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllEvents = async () => {
+    try {
+      const response = await axios.get(`/api/events`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getEventByParams = async (type) => {
+    try {
+      const response = await axios.get(`/api/events?type=${type}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -14,11 +39,11 @@ export const EventsService = () => {
 
   const createEvent = async (body) => {
     try {
-      const response = await axios.post("/api/musical/events", body);
-      console.log(response.data);
+      const response = await axios.post("/api/events", body);
+      toast.success(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -33,8 +58,11 @@ export const EventsService = () => {
   };
 
   return {
-    getEvents,
+    getAllEvents,
+    getComedyEvents,
+    getMusicalEvents,
     createEvent,
     deleteEvent,
+    getEventByParams,
   };
 };

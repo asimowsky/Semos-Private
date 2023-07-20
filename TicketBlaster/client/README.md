@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+Event Ticketing System
+Introduction
+Welcome to the Event Ticketing System project! This is a web application built with React, Node.js, and MongoDB that allows users to buy tickets for various events. The system supports two roles: admin and normal user. Admins have additional privileges to manage events, while normal users can browse and purchase tickets.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features
+User-friendly interface for browsing and purchasing event tickets- Secure authentication and authorization system with separate roles for admins and normal users.
+Admin dashboard for managing events, including creating, updating, and deleting events.
+Integration with MongoDB for storing event and user data.
+Real-time updates on ticket availability and event details.
+Responsive design for optimal viewing on different devices.
+Installation
+Prerequisites
+Before installing the project, make sure you have the following software installed on your machine:
 
-## Available Scripts
+Node.js (version 12 or higher)
+MongoDB
+Steps
 
-In the project directory, you can run:
+1. Clone the repository to your local machine using the following command:
+   git clone https://github.com/your-username/Semos-Private.git
+2. Navigate to the project directory:
 
-### `npm start`
+cd ticketblaster
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Install the dependencies for both the frontend and backend:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+cd client
+npm install
+cd ../server
+npm install
 
-### `npm test`
+4. Configure the environment variables:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Create a .env file in the server directory.
+Add the following variables to the .env file:
 
-### `npm run build`
+PORT=3000
+MONGODB_URI=mongodb://localhost/event-ticketing-system
+SECRET_KEY=your-secret-key
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. Start the backend server:
+   npm run dev
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+7. Start the frontend development server:
+   npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+8. Open your web browser and visit http://localhost:3000 to access the Event Ticketing System.
 
-### `npm run eject`
+Usage
+Admin Role
+access the admin dashboard, log in with an admin account.
+From the dashboard, you can manage events by creating, updating, or deleting them.
+You can also view a list of all users and their details.
+Normal User Role
+As a normal user, you can browse the available events on the home page.
+Click on an event to view its details and ticket availability.
+To purchase tickets, you need create an account or log in if you already have one.
+After logging in, select the desired number of tickets and proceed to checkout.
+Provide the necessary information and complete the payment process- Once the purchase is successful, you will receive a confirmation email with the ticket details.
+Contributing
+We welcome contributions to the Event Ticketing System project! you find any issues or have suggestions for improvements, please feel free to open an issue submit a pull request on our GitHub repository.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+License
+This project licensed under the MIT License.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Contact
+If you have any questions or need further assistance, please contact us at [email protected]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Thank you for using the Event Ticketing System! We hope you enjoy the experience of buying tickets for exciting events.

@@ -12,6 +12,7 @@ export const SingleProductLayout = ({
   imgSrc,
   price,
   children,
+  longDesc,
   ...props
 }) => {
   const cardsData1 = [
@@ -137,16 +138,7 @@ export const SingleProductLayout = ({
               torquent per conubia nostra, per inceptos himenaeos. Aliquam orci
               nunc, dapibus non orci sed, suscipit sodales erat.
             </div>
-            <div className="descTwo">
-              Phasellus scelerisque metus nec turpis fermentum accumsan.
-              Curabitur ex elit, egestas ac maximus in, tempus at risus.
-              Maecenas laoreet ut dui pellentesque blandit. Nunc quis sagittis
-              eros. Ut commodo id ligula a faucibus. Fusce at ex vel erat
-              hendrerit posuere quis ac velit. Proin a lectus pretium, tincidunt
-              turpis id, venenatis sapien. Aenean aliquam arcu ex, quis
-              condimentum leo laoreet in. Curabitur blandit at ex vel lobortis.
-              Aliquam erat volutpat.
-            </div>
+            <div className="descTwo">{longDesc}</div>
             <div className="bottomBox">
               <div className={styles.ticketBox}>
                 <div className={styles.tickets}>
@@ -158,11 +150,14 @@ export const SingleProductLayout = ({
                 <InputField
                   type="number"
                   id="number"
-                  name="number"
+                  name="quantity"
                   required
                   numInput
+                  value={props.quantity}
+                  onChange={props.onChange}
                 />
                 <GenericButton
+                  onClick={props.addToCart}
                   style={{
                     background: "black",
                     width: "128px",
@@ -182,7 +177,7 @@ export const SingleProductLayout = ({
       {/* TODO RELATED ACTS PROPS.MAP FOR CONNECTING DATA WITH BACKEND FROM THE PAGE SIDE! */}
       <div className={styles.relatedActs}>
         <EventBoard heading={"Related Acts"} grid>
-          {lastTwoData.map((card, index) => (
+          {lastTwoData?.map((card, index) => (
             <GenericCard
               key={index}
               imageSrc={card.imageSrc}
@@ -190,6 +185,7 @@ export const SingleProductLayout = ({
               subHeading={card.subHeading}
               description={card.description}
               location={card.location}
+              getTickets
             />
           ))}
         </EventBoard>

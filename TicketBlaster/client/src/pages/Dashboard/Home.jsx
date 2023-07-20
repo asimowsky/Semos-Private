@@ -9,7 +9,8 @@ import { ModalWrapper } from "../../components/Modal/ModalWrapper";
 export const Home = () => {
   const cardsData1 = [
     {
-      imageSrc: image,
+      imageSrc:
+        "https://yt3.googleusercontent.com/AsSq27Ed0mQg5nkXPKMFurMWRakUujyspvg2B_t03dg7nkyIn11GeKRRKSLwK57zyUV11vVT=s900-c-k-c0x00ffffff-no-rj",
       heading: "Arctic Monkeys",
       subHeading: "June 9th, 2023",
       description:
@@ -126,6 +127,7 @@ export const Home = () => {
               subHeading={card.subHeading}
               description={card.description}
               location={card.location}
+              getTickets
             />
           ))}
         </EventBoard>
@@ -141,6 +143,7 @@ export const Home = () => {
               subHeading={card.subHeading}
               description={card.description}
               location={card.location}
+              getTickets
             />
           ))}
         </EventBoard>

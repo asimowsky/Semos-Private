@@ -1,23 +1,39 @@
 .box {
-  width: 1200px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .headerBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .links {
-  display: flex;
-  gap: 15px;
+    display: flex;
+
+    gap: 15px;
 }
 
 .links a {
-  text-decoration: none;
-  color: #393939;
+    text-decoration: none;
+    color: #393939;
+}
+
+.btn {
+    width: 144px;
+    height: 42px;
+    background-color: #ff48ab;
+    color: #fff;
+    border: none;
+}
+
+.smallPanel {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
 }

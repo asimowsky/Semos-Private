@@ -1,116 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EventBoard } from "../../components/Content/Dashboard/EventBoard";
 import { GenericCard } from "../../components/Content/Dashboard/GenericCard";
 import image from "../../assets/images/comedyclub.jpeg";
 import { EventLayout } from "../../components/Layout/EventLayout/EventLayout";
+import { EventsService } from "../../services/eventsService";
+import { formatDate } from "../../components/Constants/constants";
+import { useNavigate } from "react-router-dom";
 export const ComedyShows = () => {
-  const cardsData1 = [
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra",
-      location: "Zagreb, Croatia",
-    },
-
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-  ];
-
   const [comedyCardsToShow, setComedyCardsToShow] = useState(4);
-
+  const [comedyShows, setComedyShows] = useState([]);
+  const navigate = useNavigate();
+  const { getComedyEvents } = EventsService();
+  const fetchMusicalEvents = async () => {
+    const response = await getComedyEvents();
+    setComedyShows(response);
+    console.log(response);
+  };
+  useEffect(() => {
+    fetchMusicalEvents();
+  }, []);
   const handleLoadMore = (eventType) => {
     if (eventType === "comedy") {
       setComedyCardsToShow(comedyCardsToShow + 2);
     }
+  };
+  const navigateToSinglePage = (id) => {
+    navigate(`/single/${id}`);
   };
   return (
     <EventLayout>
@@ -120,14 +35,17 @@ export const ComedyShows = () => {
         loadMoreFun={() => handleLoadMore("comedy")}
         grid
       >
-        {cardsData1.slice(0, comedyCardsToShow).map((card, index) => (
+        {comedyShows?.map((card, index) => (
           <GenericCard
             key={index}
-            imageSrc={card.imageSrc}
-            heading={card.heading}
-            subHeading={card.subHeading}
+            imageSrc={card.image}
+            heading={card.title}
+            subHeading={formatDate(card.date)}
             description={card.description}
             location={card.location}
+            price={card.price}
+            getTickets
+            onClick={() => navigateToSinglePage(card._id)}
           />
         ))}
       </EventBoard>

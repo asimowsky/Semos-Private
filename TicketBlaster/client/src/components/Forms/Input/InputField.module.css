@@ -1,28 +1,28 @@
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .box {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .roundInput {
-  width: 357px;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 20px;
-  box-sizing: border-box;
-  outline: none;
-  margin-bottom: 10px;
+    width: 357px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-sizing: border-box;
+    outline: none;
+    /* margin-bottom: 10px; */
 }
 .numInput {
-  width: 83px;
-  height: 33px;
-  border: 1px solid black;
-  border-radius: 20px;
-  text-align: center;
+    width: 83px;
+    height: 33px;
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
 }

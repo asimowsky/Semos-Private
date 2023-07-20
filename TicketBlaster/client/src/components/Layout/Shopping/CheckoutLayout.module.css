@@ -1,0 +1,35 @@
+.box {
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin-top: 5px;
+  gap: 30px;
+}
+
+.spacebtwn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.left {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cardBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* .right {
+  max-width: 500px;
+} */
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

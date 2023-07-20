@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.svg";
 import { GenericButton } from "../../Buttons/GenericButton";
 import { SearchBox } from "./SearchBox";
@@ -10,6 +10,20 @@ import { FaUser } from "react-icons/fa";
 import { AuthContext } from "../../../store/AuthProvider";
 export const Navbar = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const handleSearchSubmit = (event) => {
+    console.log(searchQuery);
+    event.preventDefault();
+    if (searchQuery) {
+      navigate(`/search?search=${searchQuery}`);
+    }
+  };
 
   return (
     <header>
@@ -33,7 +47,9 @@ export const Navbar = () => {
           <div className={styles.box}>
             <ul>
               <li>
-                <SearchBox placeholder="Search" />
+                <form onSubmit={handleSearchSubmit}>
+                  <SearchBox placeholder="Search" onSearch={handleSearch} />
+                </form>
               </li>
               {!isLoggedIn ? (
                 <>
@@ -76,7 +92,7 @@ export const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <Link to={"/panel/history"}>
+                    <Link to={"/shopping/cart"}>
                       <BsFillCartFill size={"23"} color="#FF48AB" />
                     </Link>
                   </li>

@@ -1,16 +1,39 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  userId: { type: Number, required: true },
-  isAdmin: { type: Boolean, default: false },
   fullName: {
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    requied: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  img: {
+    type: String,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  // cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
+  // purchasedTickets: [
+  //   {
+  //     eventId: { type: mongoose.Schema.Types.ObjectId, ref: "Event" },
+  //     quantity: Number,
+  //   },
+  // ],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = new mongoose.model("users", userSchema);
 
 module.exports = User;

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Details.module.css";
 import image from "../../../assets/images/arctic.jpg";
 import { GenericButton } from "../../Buttons/GenericButton";
 import { InputField } from "../Input/InputField";
 export const Details = () => {
   const [forgotPass, setForgotPass] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef();
   const isForgotPassOpen = () => {
     setForgotPass((prev) => !prev);
   };
+
+  const handleImageUpload = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.userProfile}>
-          <img src={image} alt="" />
+          {selectedFile && (
+            <img src={URL.createObjectURL(selectedFile)} alt="compressed" />
+          )}
           <GenericButton
-            // onClick={props.loadMoreFun}
+            onClick={() => fileInputRef.current.click()}
             style={{
               background: "transparent",
               width: "128px",
@@ -27,6 +36,15 @@ export const Details = () => {
           >
             Upload Avatar
           </GenericButton>
+
+          <input
+            type="file"
+            accept="image/*"
+            className={styles.btn}
+            onChange={handleImageUpload}
+            style={{ display: "none" }}
+            ref={fileInputRef}
+          />
         </div>
         <div className={styles.userInputs}>
           <form action="">

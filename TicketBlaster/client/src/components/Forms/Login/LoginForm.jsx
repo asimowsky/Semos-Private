@@ -23,50 +23,53 @@ export const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await loginAuth(formFields);
-    if (response && response.accessToken) {
-      login(response.accessToken);
+    if (response && response.token) {
+      console.log(response.message);
+      login(response.token);
       navigate("/panel/history");
     } else {
-      console.log(response?.error);
+      console.log(response?.data?.error);
     }
   };
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleLogin}>
-        <div className={styles.box}>
-          <InputField
-            label="Email"
-            type="text"
-            id="email"
-            name="email"
-            required
-            value={email}
-            onChange={handleChange}
-          />
-          <InputField
-            label="Password"
-            type="password"
-            id="password"
-            name="password"
-            required
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
+        <div className={styles.bigBox}>
+          <div className={styles.box}>
+            <InputField
+              label="Email"
+              type="text"
+              id="email"
+              name="email"
+              required
+              value={email}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Password"
+              type="password"
+              id="password"
+              name="password"
+              required
+              value={password}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className={styles.downSide}>
-          <div className={styles.downFormSide}>
-            <a href="#" className={styles.forgotLink}>
-              Forgot password?
-            </a>
-            <GenericButton className={styles.btnLogin} type="submit">
-              Log in
+          <div className={styles.downSide}>
+            <div className={styles.downFormSide}>
+              <a href="#" className={styles.forgotLink}>
+                Forgot password?
+              </a>
+              <GenericButton className={styles.btnLogin} type="submit">
+                Log in
+              </GenericButton>
+            </div>
+            <GenericButton className={styles.btnDha}>
+              Don't have an account?
             </GenericButton>
           </div>
-          <GenericButton className={styles.btnDha}>
-            Don't have an account?
-          </GenericButton>
         </div>
       </form>
     </div>
