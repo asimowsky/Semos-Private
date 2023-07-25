@@ -53,16 +53,14 @@ export const MusicalConcerts = () => {
         {musicalEvents?.map((card, index) => (
           <GenericCard
             key={index}
-            imageSrc={
-              process.env.REACT_APP_DATABASE_URL + "uploads/" + card.image
-            }
-            heading={card.title}
-            subHeading={formatDate(card.date)}
-            description={card.description}
-            location={card.location}
-            price={card.price}
+            imageSrc={card?.image}
+            heading={card?.title}
+            subHeading={formatDate(card?.date)}
+            description={card?.description}
+            location={card?.location}
+            price={card?.price}
             getTickets
-            onClick={() => navigateToSinglePage(card._id)}
+            onClick={() => navigateToSinglePage(card?._id)}
           />
         ))}
       </EventBoard>

@@ -11,6 +11,7 @@ import { EventBoard } from "../../components/Content/Dashboard/EventBoard";
 
 export const EventPanel = () => {
   const [allEvents, setAllEvents] = useState([]);
+  const navigate = useNavigate();
   const checkAdmin = jwtDecode(localStorage.getItem("accessToken"));
   console.log(checkAdmin.isAdmin);
   const isAdmin = checkAdmin.isAdmin;
@@ -31,20 +32,32 @@ export const EventPanel = () => {
     fetchEvents();
   }, []);
 
+  const deleteEventItem = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8085/api/events/${id}`);
+      setAllEvents((prev) => prev.filter((event) => event._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <PanelLayout header={"Events"} createEvent>
-        <EventBoard grid>
+        <EventBoard flex>
           {allEvents?.map((card, index) => (
             <GenericCard
               key={index}
               imageSrc={card.image}
               heading={card.title}
               subHeading={formatDate(card.date)}
-              description={card.description}
+              // description={card.description}
               location={card.location}
               price={card.price}
-              getTickets
+              onClick={() => navigate(`/panel/event/edit/${card?._id}`)}
+              allEventsCard
+              deleteShoppingCart
+              onRemove={() => deleteEventItem(card?._id)}
             />
           ))}
         </EventBoard>

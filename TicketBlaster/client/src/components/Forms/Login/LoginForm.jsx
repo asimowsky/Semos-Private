@@ -5,6 +5,7 @@ import { GenericButton } from "../../Buttons/GenericButton";
 import { InputField } from "../Input/InputField";
 import styles from "./LoginForm.module.css";
 import { AuthContext } from "../../../store/AuthProvider";
+import { toast } from "react-hot-toast";
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -26,9 +27,11 @@ export const LoginForm = () => {
     if (response && response.token) {
       console.log(response.message);
       login(response.token);
+      toast.success("successfully logged in");
       navigate("/panel/history");
     } else {
       console.log(response?.data?.error);
+      toast.error("Wrong credentials");
     }
   };
 

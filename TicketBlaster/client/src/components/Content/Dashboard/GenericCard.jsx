@@ -17,6 +17,7 @@ export const GenericCard = ({
   id,
   onRemove,
   shoppingCard,
+  allEventsCard,
   price,
   piece,
   getTickets,
@@ -24,16 +25,14 @@ export const GenericCard = ({
   checkoutCard,
   ...props
 }) => {
+  const stylesClass = isExpired
+    ? styles.expiredCard
+    : allEventsCard || shoppingCard
+    ? styles.shoppingCard
+    : styles.cardWrapper;
+
   return (
-    <div
-      className={
-        isExpired
-          ? styles.expiredCard
-          : shoppingCard
-          ? styles.shoppingCard
-          : styles.cardWrapper
-      }
-    >
+    <div className={stylesClass}>
       <div className={styles.left}>
         <div className={styles.cardImage}>
           {mimeType ? (
@@ -121,6 +120,26 @@ export const GenericCard = ({
         </div>
       </div>
       <div className={styles.right}>
+        {allEventsCard && (
+          <div className={styles.allEvents}>
+            {props.deleteShoppingCart && (
+              <GenericButton
+                onClick={onRemove}
+                style={{
+                  background: "black",
+                  width: "128px",
+                  fontWeight: "bold",
+                  color: "white",
+                  marginTop: "10px",
+                  padding: "12px",
+                }}
+              >
+                Delete Event
+              </GenericButton>
+            )}
+          </div>
+        )}
+
         {shoppingCard && (
           <>
             <div className={styles.cartPlace}>
@@ -193,7 +212,6 @@ export const GenericCard = ({
           <>
             <div className={styles.cartPlace}>
               <p style={{ fontWeight: "bolder", fontSize: "18px" }}>
-                {" "}
                 ${(piece * price).toFixed(2)}
               </p>
               <p style={{ fontWeight: "bolder", fontSize: "14px" }}>

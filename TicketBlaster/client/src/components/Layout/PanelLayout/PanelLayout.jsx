@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import styles from "./PanelLayout.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { AuthContext } from "../../../store/AuthProvider";
 import { GenericButton } from "../../Buttons/GenericButton";
@@ -8,6 +8,12 @@ import { GenericButton } from "../../Buttons/GenericButton";
 export const PanelLayout = ({ children, ...props }) => {
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const location = useLocation();
+
+  const isLinkActive = (to) => {
+    return location.pathname === to;
+  };
+
   if (!isLoggedIn) {
     return navigate("/");
   }
@@ -25,16 +31,28 @@ export const PanelLayout = ({ children, ...props }) => {
         </h1>
 
         <div className={styles.links}>
-          <Link to="/panel/events">
+          <Link
+            to="/panel/events"
+            className={isLinkActive("/panel/events") ? styles.linkColor : ""}
+          >
             <h3 className="font-18">Events</h3>
           </Link>
-          <Link to="/panel/users">
+          <Link
+            to="/panel/users"
+            className={isLinkActive("/panel/users") ? styles.linkColor : ""}
+          >
             <h3 className="font-18">Users</h3>
           </Link>
-          <Link to="/panel/history">
+          <Link
+            to="/panel/history"
+            className={isLinkActive("/panel/history") ? styles.linkColor : ""}
+          >
             <h3 className="font-18">Tickets History</h3>
           </Link>
-          <Link to="/panel/details">
+          <Link
+            to="/panel/details"
+            className={isLinkActive("/panel/details") ? styles.linkColor : ""}
+          >
             <h3 className="font-18">User Details </h3>
           </Link>
           <button

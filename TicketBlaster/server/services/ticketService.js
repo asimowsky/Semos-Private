@@ -1,14 +1,14 @@
 const Ticket = require("../models/ticket.model");
-
+const QrCode = require("../models/qr.model");
 const createCartItem = async (req, res) => {
   try {
     const { itemId, quantity } = req.body;
     const { user, event } = req.body;
 
     // Check for an existing cart item with the same user and event
-    let cartItem = await Ticket.findOne({ user, event });
+    let cartItem = await Ticket.findOne({ user, event, isPurchased: false });
 
-    if (cartItem) {
+    if (cartItem && !cartItem.isPurchased) {
       // If the cart item already exists, update its quantity
       cartItem.quantity += +quantity;
     } else {
@@ -26,16 +26,16 @@ const createCartItem = async (req, res) => {
 
 const purchaseTicketsByUserId = async (req, res) => {
   try {
-    // const newQRCode = new QrCode({
-    //   hashCode: "Test UUID",
-    //   isUsed: false,
-    // });
-    // await newQRCode.save();
+    const newQRCode = new QrCode({
+      hashCode: "GUID",
+      isUsed: false,
+    });
+    await newQRCode.save();
     const ticket = await Ticket.findOneAndUpdate(
       { userID: req.params.userId, isPurchased: false },
       {
         isPurchased: true,
-        // qrCode: newQRCode._id,
+        qrCode: newQRCode._id,
       },
       { new: true }
     );

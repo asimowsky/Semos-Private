@@ -52,12 +52,13 @@ export const SingleProduct = () => {
     <SingleProductLayout
       header={event?.title}
       date={formatDate(event.date)}
-      imgSrc={event.image}
+      imgSrc={process.env.REACT_APP_DATABASE_URL + "uploads/" + event?.image}
       description={event?.location}
       longDesc={event?.description}
       quantity={quantity}
       onChange={(e) => handleOnChangeQuantity(e)}
       addToCart={handleAddToCart}
+      relatedEvents={event?.relatedEvents}
     />
   );
 };

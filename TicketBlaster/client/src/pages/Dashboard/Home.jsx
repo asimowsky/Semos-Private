@@ -1,115 +1,27 @@
-import React, { useState } from "react";
-import image from "../../assets/images/arctic.jpg";
-import mrbean from "../../assets/images/mrbean.jfif";
+import React, { useEffect, useState } from "react";
 import { EventBoard } from "../../components/Content/Dashboard/EventBoard";
 import { GenericCard } from "../../components/Content/Dashboard/GenericCard";
 import { HeroCard } from "../../components/Content/Dashboard/HeroCard";
-import { ModalWrapper } from "../../components/Modal/ModalWrapper";
+import { EventsService } from "../../services/eventsService";
 
 export const Home = () => {
-  const cardsData1 = [
-    {
-      imageSrc:
-        "https://yt3.googleusercontent.com/AsSq27Ed0mQg5nkXPKMFurMWRakUujyspvg2B_t03dg7nkyIn11GeKRRKSLwK57zyUV11vVT=s900-c-k-c0x00ffffff-no-rj",
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
+  const [musicalConcerts, setMusicalConcerts] = useState();
+  const [comedyShows, setComedyShows] = useState();
+  const { getEventByParams } = EventsService();
+  useEffect(() => {
+    const musicalRes = async () => {
+      const data = await getEventByParams("Music");
+      setMusicalConcerts(data);
+    };
 
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-  ];
-  const cardsData2 = [
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: mrbean,
-      heading: "MisterBean",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-  ];
+    const comedyRes = async () => {
+      const data = await getEventByParams("Comedy");
+      setComedyShows(data);
+    };
 
+    musicalRes();
+    comedyRes();
+  }, []);
   return (
     <div>
       <HeroCard />
@@ -119,10 +31,10 @@ export const Home = () => {
           heading={"Musical Concerts"}
           loadMore={"See all musical concerts"}
         >
-          {cardsData1.map((card, index) => (
+          {musicalConcerts?.map((card, index) => (
             <GenericCard
               key={index}
-              imageSrc={card.imageSrc}
+              imageSrc={card?.image}
               heading={card.heading}
               subHeading={card.subHeading}
               description={card.description}
@@ -135,14 +47,14 @@ export const Home = () => {
           heading={"Stand-up Comedy"}
           loadMore={"See all comedy shows"}
         >
-          {cardsData2.map((card, index) => (
+          {comedyShows?.map((card, index) => (
             <GenericCard
               key={index}
-              imageSrc={card.imageSrc}
-              heading={card.heading}
-              subHeading={card.subHeading}
-              description={card.description}
-              location={card.location}
+              imageSrc={card?.image}
+              heading={card?.heading}
+              subHeading={card?.subHeading}
+              description={card?.description}
+              location={card?.location}
               getTickets
             />
           ))}

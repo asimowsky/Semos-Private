@@ -3,9 +3,16 @@ import styles from "./UserCard.module.css";
 import { GenericButton } from "../../Buttons/GenericButton";
 import { ModalWrapper } from "../../Modal/ModalWrapper";
 import axios from "axios";
-export const UserCard = ({ user, ...props }) => {
+
+export const UserCard = ({
+  user,
+  handleMakeAdmin,
+  handleDeleteUser,
+  handleMakeUser,
+}) => {
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
 
   const openAdminModal = () => {
     setIsAdminModalOpen(true);
@@ -23,9 +30,12 @@ export const UserCard = ({ user, ...props }) => {
     setIsDeleteModalOpen(false);
   };
 
-  const handleMakeAdmin = () => {
-    console.log("Make Admin");
-    closeAdminModal();
+  const openUserModal = () => {
+    setIsUserModalOpen(true);
+  };
+
+  const closeUserModal = () => {
+    setIsUserModalOpen(false);
   };
 
   return (
@@ -40,20 +50,37 @@ export const UserCard = ({ user, ...props }) => {
         </div>
         <div className={styles.rightSide}>
           <div className={styles.buttons}>
-            <GenericButton
-              onClick={openAdminModal}
-              style={{
-                backgroundColor: "transparent",
-                border: "1px solid #FF48AB",
-                width: "px",
-                fontWeight: "bold",
-                color: "black",
-                fontSize: "13px",
-                height: "32px",
-              }}
-            >
-              Make Admin
-            </GenericButton>
+            {user?.isAdmin === false ? (
+              <GenericButton
+                onClick={openAdminModal}
+                style={{
+                  backgroundColor: "transparent",
+                  border: "1px solid #FF48AB",
+                  width: "128px",
+                  fontWeight: "bold",
+                  color: "black",
+                  fontSize: "13px",
+                  height: "32px",
+                }}
+              >
+                Make Admin
+              </GenericButton>
+            ) : (
+              <GenericButton
+                style={{
+                  backgroundColor: "transparent",
+                  border: "1px solid #FF48AB",
+                  width: "128px",
+                  fontWeight: "bold",
+                  color: "black",
+                  fontSize: "13px",
+                  height: "32px",
+                }}
+                onClick={openUserModal}
+              >
+                Make User
+              </GenericButton>
+            )}
             <GenericButton
               onClick={openDeleteModal}
               style={{
@@ -95,7 +122,10 @@ export const UserCard = ({ user, ...props }) => {
               Cancel
             </GenericButton>
             <GenericButton
-              onClick={handleMakeAdmin}
+              onClick={() => {
+                handleMakeAdmin();
+                closeAdminModal();
+              }}
               style={{
                 background: "black",
                 color: "white",
@@ -128,7 +158,10 @@ export const UserCard = ({ user, ...props }) => {
               Cancel
             </GenericButton>
             <GenericButton
-              onClick={props.handleDeleteUser}
+              onClick={() => {
+                handleDeleteUser();
+                closeDeleteModal();
+              }}
               style={{
                 background: "black",
                 color: "white",
@@ -137,6 +170,45 @@ export const UserCard = ({ user, ...props }) => {
               }}
             >
               Delete User
+            </GenericButton>
+          </div>
+        </div>
+      </ModalWrapper>
+
+      <ModalWrapper isOpen={isUserModalOpen} onClose={closeUserModal}>
+        <div className={styles.flex}>
+          <h2>Are you sure?</h2>
+          <p>
+            You are about to make a admin to normal user of the system. Please
+            proceed with caution.
+          </p>
+          <div className={styles.modalButtons}>
+            <GenericButton
+              onClick={closeAdminModal}
+              style={{
+                backgroundColor: "white",
+                border: "1px solid black",
+                color: "black",
+                fontSize: "13px",
+                height: "32px",
+                marginRight: "8px",
+              }}
+            >
+              Cancel
+            </GenericButton>
+            <GenericButton
+              onClick={() => {
+                handleMakeUser();
+                closeUserModal();
+              }}
+              style={{
+                background: "black",
+                color: "white",
+                fontSize: "13px",
+                height: "32px",
+              }}
+            >
+              Make User
             </GenericButton>
           </div>
         </div>

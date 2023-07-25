@@ -12,7 +12,6 @@ const router = express.Router();
 router.get("/", getAllUsers);
 
 router.get("/:id", getUser);
-// router.get("/tickets/:id", getPurchasedEvents);
 router.put("/:id", updateUser);
 router.patch("/soft-delete/:id", softDeleteUser);
 router.patch("/role/:id", changeUserRole);

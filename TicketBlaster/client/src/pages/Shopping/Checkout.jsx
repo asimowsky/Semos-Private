@@ -26,14 +26,12 @@ export const Checkout = () => {
         `http://localhost:8085/api/tickets/purchase-ticket/${USER_ID}`,
         checkOutEvents
       );
-      // navigate("/successful-payment", { state: { checkOutEvents } });
+      // navigate("/thankyou", { state: { checkOutEvents } });
     } catch (err) {
       console.log(err);
     }
   };
-  const handleSubmit = () => {
-    console.log("yarrak");
-  };
+
   return (
     <div>
       <CheckoutLayout

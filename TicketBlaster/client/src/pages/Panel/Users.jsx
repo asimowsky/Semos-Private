@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PanelLayout } from "../../components/Layout/PanelLayout/PanelLayout";
 import { UserCard } from "../../components/Content/UserCard/UserCard";
 import axios from "axios";
-
+import toast from "react-hot-toast";
 export const Users = () => {
   const [userData, setUserData] = useState([]);
   const USER_ID = localStorage.getItem("userID");
@@ -21,6 +21,30 @@ export const Users = () => {
     }
   };
 
+  const handleMakeAdmin = async (userId) => {
+    try {
+      await axios.patch(`http://localhost:8085/api/users/role/${userId}`, {
+        isAdmin: true,
+      });
+
+      toast.success("user role changed to admin");
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const handleMakeUser = async (userId) => {
+    try {
+      await axios.patch(`http://localhost:8085/api/users/role/${userId}`, {
+        isAdmin: false,
+      });
+      toast.success("admin role changed to user");
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleDeleteUser = async (userId) => {
     try {
       await axios.patch(
@@ -29,10 +53,8 @@ export const Users = () => {
           isDeleted: true,
         }
       );
-
-      // After successfully deleting the user, update the user data in the state.
-      const updatedUsers = userData.filter((user) => user._id !== userId);
-      setUserData(updatedUsers);
+      toast.success("user deleted successfully");
+      fetchUsers();
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +71,9 @@ export const Users = () => {
           <UserCard
             key={user?._id}
             user={user}
-            handleDeleteUser={() => handleDeleteUser(user._id)}
+            handleMakeAdmin={() => handleMakeAdmin(user?._id)}
+            handleDeleteUser={() => handleDeleteUser(user?._id)}
+            handleMakeUser={() => handleMakeUser(user?._id)}
           />
         ))}
       </PanelLayout>

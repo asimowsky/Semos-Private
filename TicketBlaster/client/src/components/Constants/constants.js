@@ -29,3 +29,24 @@ function getOrdinalSuffix(number) {
 
   return specialCase ? "th" : suffix;
 }
+
+export const formatDateToMMDDYYYY = (dateString) => {
+  console.log("Input date string:", dateString);
+
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const formattedDate = `${month}/${day}/${year}`;
+
+  console.log("Formatted date:", formattedDate);
+  return formattedDate;
+};
+
+export const convertDateToYYYYMMDD = (dateString) => {
+  const dateParts = dateString.split("/");
+  const year = dateParts[2];
+  const month = dateParts[0].padStart(2, "0");
+  const day = dateParts[1].padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};

@@ -36,36 +36,41 @@ const createEvent = async (req, res, next) => {
     req.body;
 
   const image = fileName;
-  const newEvent = new Event({
-    title,
-    description,
-    date,
-    category,
-    location,
-    image,
-    price,
-    relatedEvents: [],
-  });
+  if (req.body._id) {
+    req.body.image = fileName;
+    updateEvent(req, res, next);
+  } else {
+    const newEvent = new Event({
+      title,
+      description,
+      date,
+      category,
+      location,
+      image,
+      price,
+      relatedEvents: [],
+    });
 
-  const savedEvent = await newEvent.save();
+    const savedEvent = await newEvent.save();
 
-  for (const relatedEventId of relatedEvents) {
-    const relatedEvent = await RelatedEvent.findById(relatedEventId);
-    if (relatedEvent) {
-      relatedEvent.events.push(savedEvent._id);
-      await relatedEvent.save();
+    for (const relatedEventId of relatedEvents) {
+      const relatedEvent = await RelatedEvent.findById(relatedEventId);
+      if (relatedEvent) {
+        relatedEvent.events.push(savedEvent._id);
+        await relatedEvent.save();
+      }
     }
-  }
 
-  savedEvent.relatedEvents = relatedEvents;
-  await savedEvent.save();
-  res.status(201).json(savedEvent);
+    savedEvent.relatedEvents = relatedEvents;
+    await savedEvent.save();
+    res.status(201).json(savedEvent);
+  }
 };
 
 const updateEvent = async (req, res, next) => {
   try {
     const updatedEvent = await Event.findByIdAndUpdate(
-      req.params.id,
+      req.body._id,
       { $set: req.body },
       { new: true }
     );

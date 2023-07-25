@@ -45,6 +45,7 @@ function App() {
           <Route path="/panel/events" element={<EventPanel />} />
           <Route path="/panel/users" element={<Users />} />
           <Route path="/panel/event/details" element={<EventDetails />} />
+          <Route path="/panel/event/edit/:eventId" element={<EventDetails />} />
           <Route path="/shopping/cart" element={<ShoppingCart />} />
           <Route path="/shopping/checkout" element={<Checkout />} />
           <Route path="/shopping/thankyou" element={<ThankYou />} />

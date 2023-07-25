@@ -5,6 +5,7 @@ import { GenericButton } from "../../Buttons/GenericButton";
 import image from "../../../assets/images/comedyclub.jpeg";
 import { GenericCard } from "../../Content/Dashboard/GenericCard";
 import { EventBoard } from "../../Content/Dashboard/EventBoard";
+import { formatDate } from "../../Constants/constants";
 export const SingleProductLayout = ({
   header,
   date,
@@ -13,111 +14,9 @@ export const SingleProductLayout = ({
   price,
   children,
   longDesc,
+  relatedEvents,
   ...props
 }) => {
-  const cardsData1 = [
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-    {
-      imageSrc: image,
-      heading: "Arctic Monkeys",
-      subHeading: "June 9th, 2023",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. quent per conubia nostra…",
-      location: "Zagreb, Croatia",
-    },
-  ];
-
-  const lastTwoData = cardsData1.slice(-2);
-
   return (
     <div className={styles.box}>
       <div className={styles.head}>
@@ -177,14 +76,15 @@ export const SingleProductLayout = ({
       {/* TODO RELATED ACTS PROPS.MAP FOR CONNECTING DATA WITH BACKEND FROM THE PAGE SIDE! */}
       <div className={styles.relatedActs}>
         <EventBoard heading={"Related Acts"} grid>
-          {lastTwoData?.map((card, index) => (
+          {relatedEvents?.map((card, index) => (
             <GenericCard
               key={index}
-              imageSrc={card.imageSrc}
-              heading={card.heading}
-              subHeading={card.subHeading}
-              description={card.description}
-              location={card.location}
+              imageSrc={card?.image}
+              heading={card?.title}
+              subHeading={formatDate(card?.date)}
+              description={card?.description}
+              location={card?.location}
+              price={card?.price}
               getTickets
             />
           ))}
