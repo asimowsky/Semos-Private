@@ -147,3 +147,7 @@
   width: 100%;
   margin-left: 10px;
 }
+.thankYou {
+  display: flex;
+  gap: 15px;
+}

@@ -51,10 +51,10 @@ export const EventPanel = () => {
               imageSrc={card.image}
               heading={card.title}
               subHeading={formatDate(card.date)}
-              // description={card.description}
+              editCardLink={true}
+              idOfEvent={encodeURIComponent(card?._id)}
               location={card.location}
               price={card.price}
-              onClick={() => navigate(`/panel/event/edit/${card?._id}`)}
               allEventsCard
               deleteShoppingCart
               onRemove={() => deleteEventItem(card?._id)}

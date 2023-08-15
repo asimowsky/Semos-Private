@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./assets/css/Globals.css";
 import { MainLayout } from "./components/Layout/Main/MainLayout";
 import { CreateAccount } from "./pages/Account/CreateAccount/CreateAccount";
@@ -25,13 +25,7 @@ function App() {
       <Toaster />
 
       <Routes>
-        <Route
-          element={
-            // <AuthProvider>
-            <MainLayout />
-            // </SearchProvider>
-          }
-        >
+        <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<CreateAccount />} />
@@ -50,6 +44,7 @@ function App() {
           <Route path="/shopping/checkout" element={<Checkout />} />
           <Route path="/shopping/thankyou" element={<ThankYou />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
         </Route>
       </Routes>
     </>

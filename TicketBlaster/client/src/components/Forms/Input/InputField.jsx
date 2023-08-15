@@ -13,6 +13,9 @@ export const InputField = ({
   numInput,
   textarea,
   optionsData,
+  min,
+  max,
+  pattern,
 }) => {
   const [options, setOptions] = useState([]);
 
@@ -64,6 +67,7 @@ export const InputField = ({
             value={value}
             onChange={onChange}
             style={style}
+            pattern={pattern}
           />
         )}
       </div>

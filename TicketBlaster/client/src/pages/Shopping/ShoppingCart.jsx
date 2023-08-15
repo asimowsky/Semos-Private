@@ -3,10 +3,11 @@ import { ShoppingLayout } from "../../components/Layout/Shopping/ShoppingLayout"
 import { TicketService } from "../../services/ticketService";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const ShoppingCart = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const { getDataFromCart } = TicketService();
-
+  const navigate = useNavigate();
   const USER_ID = localStorage.getItem("userID");
 
   useEffect(() => {

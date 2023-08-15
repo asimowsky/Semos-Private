@@ -3,27 +3,12 @@ import styles from "./CheckoutLayout.module.css";
 import { GenericCard } from "../../Content/Dashboard/GenericCard";
 import { formatDate } from "../../Constants/constants";
 import { GenericButton } from "../../Buttons/GenericButton";
-import { InputField } from "../../Forms/Input/InputField";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+import { CreditCard } from "../../CreditCard/CreditCard";
 
 export const CheckoutLayout = ({ children, selectedCards, ...props }) => {
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
   const navigate = useNavigate();
-  const handleInputChange = (event) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }));
-  };
   useEffect(() => {
     // Calculate the total price by iterating through selectedCards
     const newTotalPrice = selectedCards.reduce(
@@ -33,7 +18,7 @@ export const CheckoutLayout = ({ children, selectedCards, ...props }) => {
 
     // Update the state with the new total price
     setTotalPrice(newTotalPrice);
-  }, [selectedCards, formData]);
+  }, [selectedCards]);
 
   return (
     <>
@@ -69,42 +54,7 @@ export const CheckoutLayout = ({ children, selectedCards, ...props }) => {
         <div className={styles.right}>
           <form>
             <div className={styles.formGroup}>
-              <InputField
-                label="Full Name"
-                type="text"
-                id="fullName"
-                name="fullName"
-                required
-                value={formData.fullName}
-                onChange={handleInputChange}
-              />
-              <InputField
-                label="Card No"
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              <InputField
-                label="Expires"
-                type="password"
-                id="password"
-                name="password"
-                required
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-              <InputField
-                label="PIN"
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                required
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-              />
+              <CreditCard />
             </div>
           </form>
         </div>
@@ -123,6 +73,7 @@ export const CheckoutLayout = ({ children, selectedCards, ...props }) => {
             border: "none",
             width: "130px",
           }}
+          onClick={() => navigate(-1)}
         >
           Back
         </GenericButton>

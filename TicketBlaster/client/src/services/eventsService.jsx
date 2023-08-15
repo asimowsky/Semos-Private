@@ -32,7 +32,7 @@ export const EventsService = () => {
   const getEventByParams = async (type) => {
     try {
       const response = await axios.get(`api/events/type?type=${type}`);
-      console.log("RESPONSE ON MUSIC = ", response.data);
+      // console.log("RESPONSE ON MUSIC = ", response.data);
       return response.data;
     } catch (error) {
       console.log(error);

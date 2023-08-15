@@ -31,15 +31,12 @@ function getOrdinalSuffix(number) {
 }
 
 export const formatDateToMMDDYYYY = (dateString) => {
-  console.log("Input date string:", dateString);
-
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
   const formattedDate = `${month}/${day}/${year}`;
 
-  console.log("Formatted date:", formattedDate);
   return formattedDate;
 };
 

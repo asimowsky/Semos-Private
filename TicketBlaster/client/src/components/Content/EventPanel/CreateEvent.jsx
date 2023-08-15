@@ -19,9 +19,9 @@ export const CreateEvent = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedEvent, setSelectedEvent] = useState("");
   const [optionsData, setOptionsData] = useState([]);
-  const [relatedEvents, setRelatedEvents] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [eventDetails, setEventDetails] = useState({});
+  const [relatedEvents, setRelatedEvents] = useState([]);
   const navigate = useNavigate();
   // Services
   const { getEventByParams } = EventsService();
@@ -41,17 +41,24 @@ export const CreateEvent = () => {
   };
 
   const postDataToBackend = async () => {
-    if (!selectedFile) {
+    if (!eventId && !selectedFile) {
       toast.error("Please upload an event image.");
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:8085/api/events", {
+      let dataToSend = {
         ...eventDetails,
-        image: selectedFile,
-        category: eventDetails.selectedCategory,
-      });
+        category: eventDetails.selectedCategory || selectedCategory,
+        relatedEvents: eventDetails.relatedEvents || relatedEvents,
+      };
+
+      // If the eventId exists, do not include the 'image' property in the request.
+      if (!eventDetails.eventId) {
+        dataToSend.image = selectedFile;
+      }
+
+      const response = await axios.post("http://localhost:8085/api/events", dataToSend);
 
       console.log("BRAVO BE EVETI KARTA ZA KONCERT xD : ", response.data);
 
@@ -61,6 +68,7 @@ export const CreateEvent = () => {
       navigate("/panel/events");
     } catch (err) {
       console.log(err);
+      toast.error(err.message)
     }
   };
 
@@ -70,16 +78,31 @@ export const CreateEvent = () => {
     setSelectedEvent(""); // Reset selected event when category changes
   };
 
-  // Function to add a related event
-  const handleAddRelatedEvent = () => {
+  const handleAddRelatedEventUpdate = () => {
     const events = selectedCategory === "Music" ? musicalEvents : comedyShows;
     const event = events?.find((ev) => ev._id === selectedEvent);
-    console.log("TEST rrr", selectedEvent, event, events);
-    if (event && eventDetails?.relatedEvents.length < 2) {
-      setEventDetails((prevState) => [
+
+    if (event && eventDetails?.relatedEvents?.length < 2) { // Add a null check for relatedEvents
+      setEventDetails((prevState) => ({
         ...prevState,
-        [...prevState.relatedEvents, event],
-      ]);
+        relatedEvents: [...prevState.relatedEvents, event],
+      }));
+
+      // Remove the selected event from the optionsData array
+      setOptionsData((prevState) =>
+        prevState.filter((option) => option.id !== selectedEvent)
+      );
+    }
+  };
+
+  const handleAddRelatedEventCreate = (e) => {
+    e.preventDefault();
+    const events = selectedCategory === "Music" ? musicalEvents : comedyShows;
+    const event = events?.find((ev) => ev._id === selectedEvent);
+
+    if (event && relatedEvents.length < 2) {
+      setRelatedEvents((prevRelatedEvents) => [...prevRelatedEvents, event]);
+
       // Remove the selected event from the optionsData array
       setOptionsData((prevState) =>
         prevState.filter((option) => option.id !== selectedEvent)
@@ -117,7 +140,6 @@ export const CreateEvent = () => {
         setMusicalEvents(musicalEventsData);
         setComedyShows(comedyShowsData);
 
-        // Initialize optionsData based on the selected category
         let eventsData = [];
         if (selectedCategory === "Music") {
           eventsData = musicalEventsData;
@@ -139,6 +161,8 @@ export const CreateEvent = () => {
 
     fetchData();
   }, []);
+
+
 
   // Update optionsData when selectedCategory changes
   useEffect(() => {
@@ -199,15 +223,11 @@ export const CreateEvent = () => {
         <InputField
           label="Category"
           type="select"
-          onChange={(e) =>
-            setEventDetails((prev) => ({
-              ...prev,
-              category: e.target.value,
-            }))
-          }
+          onChange={(e) => handleCategoryChange(e)}
           optionsData={["Music", "Comedy"]}
-          value={eventDetails?.category}
+          value={selectedCategory}
         />
+
         <InputField
           label="Date"
           type="date"
@@ -242,12 +262,12 @@ export const CreateEvent = () => {
 
           <div className={styles.imgContainer}>
             {selectedFile && <img src={selectedFile || ""} alt="compressed" />}
-            {eventId && (
+            {eventId && !selectedFile && (
               <img
                 src={
                   process.env.REACT_APP_DATABASE_URL +
-                    "uploads/" +
-                    eventDetails?.image || ""
+                  "uploads/" +
+                  eventDetails?.image || ""
                 }
                 alt="compressed"
               />
@@ -287,7 +307,6 @@ export const CreateEvent = () => {
             type="select"
             optionsData={optionsData}
             onChange={(e) => {
-              console.log(e.target.value);
               setSelectedEvent(e.target.value);
             }}
           />
@@ -305,7 +324,7 @@ export const CreateEvent = () => {
           />
           <GenericButton
             className={styles.addBtn}
-            onClick={handleAddRelatedEvent}
+            onClick={eventId ? handleAddRelatedEventUpdate : handleAddRelatedEventCreate}
           >
             Add
           </GenericButton>
@@ -314,35 +333,33 @@ export const CreateEvent = () => {
 
       <div className={styles.row}>
         <div className={styles.flex}>
-          {eventId
-            ? eventDetails?.relatedEvents?.map((event) => (
-                <GenericCard
-                  key={event?._id}
-                  imageSrc={event?.image}
-                  heading={event?.title}
-                  subHeading={formatDate(event?.date)}
-                  description={event?.description}
-                  location={event?.location}
-                  showRemove
-                  onRemove={() =>
-                    handleRemoveRelatedEvent(event?._id, event?.title)
-                  }
-                />
-              ))
-            : relatedEvents?.map((event) => (
-                <GenericCard
-                  key={event?._id}
-                  imageSrc={event?.image}
-                  heading={event?.title}
-                  subHeading={formatDate(event?.date)}
-                  description={event?.description}
-                  location={event?.location}
-                  showRemove
-                  onRemove={() =>
-                    handleRemoveRelatedEvent(event?._id, event?.title)
-                  }
-                />
-              ))}
+          {eventId ? eventDetails.relatedEvents?.map((event) => (
+            <GenericCard
+              key={event?._id}
+              imageSrc={event?.image}
+              heading={event?.title}
+              subHeading={formatDate(event?.date)}
+              description={event?.description}
+              location={event?.location}
+              showRemove
+              onRemove={() =>
+                handleRemoveRelatedEvent(event?._id, event?.title)
+              }
+            />
+          )) : relatedEvents?.map((event) => (
+            <GenericCard
+              key={event?._id}
+              imageSrc={event?.image}
+              heading={event?.title}
+              subHeading={formatDate(event?.date)}
+              description={event?.description}
+              location={event?.location}
+              showRemove
+              onRemove={() =>
+                handleRemoveRelatedEvent(event?._id, event?.title)
+              }
+            />
+          ))}
         </div>
       </div>
       <div className={styles.row}>

@@ -1,0 +1,110 @@
+.roundInput {
+  width: 357px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-sizing: border-box;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.loginButton {
+  width: 128px;
+  padding: 10px;
+  background-color: #ff48ab;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.heading {
+  font-size: 33px;
+  font-weight: bolder;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.downFormSide {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.downSide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.errorMessage {
+  color: red;
+  padding: 8px;
+  border: 2px solid red;
+}
+.modernBg {
+  background: rgb(255, 178, 3);
+  background: -moz-linear-gradient(
+    40deg,
+    rgba(255, 178, 3, 1) 0%,
+    rgba(255, 254, 255, 1) 40%,
+    rgba(253, 253, 255, 1) 53%,
+    rgba(233, 171, 148, 1) 98%
+  );
+  background: -webkit-linear-gradient(
+    40deg,
+    rgba(255, 178, 3, 1) 0%,
+    rgba(255, 254, 255, 1) 40%,
+    rgba(253, 253, 255, 1) 53%,
+    rgba(233, 171, 148, 1) 98%
+  );
+  background: linear-gradient(
+    40deg,
+    rgba(255, 178, 3, 1) 0%,
+    rgba(255, 254, 255, 1) 40%,
+    rgba(253, 253, 255, 1) 53%,
+    rgba(233, 171, 148, 1) 98%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffb203",endColorstr="#e9ab94",GradientType=1);
+}
+
+.rainbow_hover {
+  background: linear-gradient(
+    to right,
+
+    rgb(254, 254, 255),
+    rgb(220, 196, 237),
+    violet
+  );
+  background-size: 200% auto;
+  color: white;
+  transition: background-position 0.5s ease-in-out;
+  animation: rainbow-animation 10s linear infinite;
+}
+
+.rainbow-hover:hover {
+  background-position: 100% center;
+}
+
+@keyframes rainbow-animation {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+input {
+  padding: 6px;
+  outline-offset: 20cap;
+}

@@ -13,11 +13,11 @@ const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
     }
 
-    //   if(token){
-    //       const myToken = localStorage.getItem("accessToken");
-    // const userDetails = jwtDecode(TmyTo);
-    // localStorage.setItem("userID", userDetails._id);
-    // }
+    if (token) {
+      const myToken = localStorage.getItem("accessToken");
+      const userDetails = jwtDecode(myToken);
+      localStorage.setItem("userID", userDetails._id);
+    }
   }, []);
 
   const login = (token) => {
@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userID");
     setIsLoggedIn(false);
   };
 

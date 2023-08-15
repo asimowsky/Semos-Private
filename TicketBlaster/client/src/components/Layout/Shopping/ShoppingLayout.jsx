@@ -94,6 +94,7 @@ export const ShoppingLayout = ({
                   border: "none",
                   width: "130px",
                 }}
+                onClick={() => navigate(-1)}
               >
                 Back
               </GenericButton>

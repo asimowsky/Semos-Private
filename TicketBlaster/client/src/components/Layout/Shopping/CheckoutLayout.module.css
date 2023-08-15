@@ -2,7 +2,6 @@
   width: 1200px;
   display: flex;
   flex-direction: row;
-  justify-content: start;
   margin-top: 5px;
   gap: 30px;
 }
